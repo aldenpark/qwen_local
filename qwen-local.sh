@@ -598,7 +598,7 @@ install_packages() {
     fi
 
     brew install \
-      git cmake pkg-config python curl wget psmisc sqlite3 node
+      git cmake pkg-config python curl wget sqlite3 node
 
     return 0
   fi
