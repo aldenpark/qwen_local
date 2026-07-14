@@ -1,0 +1,311 @@
+{
+  "agents": {
+    "defaults": {
+      "workspace": "/home/aldenpark/.openclaw/workspace",
+      "model": {
+        "primary": "Qwen3.5-4B-Q5_K_M.gguf"
+      },
+      "contextTokens": 153600,
+      "models": {
+        "qwen-local/Qwen3-4B-Q5_K_M.gguf": {
+          "alias": "qwen3-4b-q5"
+        },
+        "qwen-local/Qwen3.5-4B-Q5_K_M.gguf": {
+          "alias": "qwen35-4b-q5km"
+        }
+      },
+      "compaction": {
+        "reserveTokensFloor": 512,
+        "reserveTokens": 512,
+        "keepRecentTokens": 1000,
+        "truncateAfterCompaction": true,
+        "maxActiveTranscriptBytes": "64kb",
+        "midTurnPrecheck": {
+          "enabled": true
+        }
+      },
+      "memorySearch": {
+        "enabled": false
+      }
+    }
+  },
+  "gateway": {
+    "mode": "local",
+    "auth": {
+      "mode": "token",
+      "token": "5d7f78aab1bf125f30240338ae4a2ab53f5ac7930fca15b6"
+    },
+    "port": 18789,
+    "bind": "loopback",
+    "tailscale": {
+      "mode": "off",
+      "resetOnExit": false
+    },
+    "nodes": {
+      "denyCommands": [
+        "camera.snap",
+        "camera.clip",
+        "screen.record",
+        "contacts.add",
+        "calendar.add",
+        "reminders.add",
+        "sms.send",
+        "sms.search"
+      ]
+    }
+  },
+  "session": {
+    "dmScope": "per-channel-peer"
+  },
+  "tools": {
+    "profile": "coding",
+    "deny": [
+      "memory_search",
+      "memory_get",
+      "x_search"
+    ],
+    "web": {
+      "search": {
+        "provider": "parallel-free",
+        "enabled": false
+      }
+    },
+    "alsoAllow": [
+      "codex_exec"
+    ]d
+  },
+  "plugins": {
+    "entries": {
+      "browser": {
+        "enabled": false
+      },
+      "canvas": {
+        "enabled": false
+      },
+      "file-transfer": {
+        "enabled": false
+      },
+      "device-pair": {
+        "enabled": false
+      },
+      "phone-control": {
+        "enabled": false
+      },
+      "talk-voice": {
+        "enabled": false
+      },
+      "parallel": {
+        "enabled": true
+      },
+      "llama-cpp": {
+        "enabled": true
+      },
+      "openshell": {
+        "enabled": true,
+        "config": {
+          "mode": "mirror"
+        }
+      },
+      "codex-exec": {
+        "enabled": true,
+        "config": {
+          "defaultCwd": "/home/aldenpark/models"
+        }
+      }
+    },
+    "load": {
+      "paths": [
+        "/home/aldenpark/models/plugins/codex-exec"
+      ]
+    }
+  },
+  "skills": {
+    "entries": {
+      "clawhub": {
+        "enabled": false
+      },
+      "skill-creator": {
+        "enabled": false
+      },
+      "find-skills": {
+        "enabled": false
+      },
+      "diagram-maker": {
+        "enabled": false
+      },
+      "caveman": {
+        "enabled": false
+      },
+      "caveman-compress": {
+        "enabled": false
+      },
+      "caveman-review": {
+        "enabled": false
+      },
+      "1password": {
+        "enabled": false
+      },
+      "blogwatcher": {
+        "enabled": false
+      },
+      "blucli": {
+        "enabled": false
+      },
+      "camsnap": {
+        "enabled": false
+      },
+      "coding-agent": {
+        "enabled": false
+      },
+      "eightctl": {
+        "enabled": false
+      },
+      "gemini": {
+        "enabled": false
+      },
+      "gifgrep": {
+        "enabled": false
+      },
+      "gog": {
+        "enabled": false
+      },
+      "goplaces": {
+        "enabled": false
+      },
+      "himalaya": {
+        "enabled": false
+      },
+      "mcporter": {
+        "enabled": false
+      },
+      "nano-pdf": {
+        "enabled": false
+      },
+      "obsidian": {
+        "enabled": false
+      },
+      "openai-whisper": {
+        "enabled": false
+      },
+      "openhue": {
+        "enabled": false
+      },
+      "oracle": {
+        "enabled": false
+      },
+      "ordercli": {
+        "enabled": false
+      },
+      "sag": {
+        "enabled": false
+      },
+      "sherpa-onnx-tts": {
+        "enabled": false
+      },
+      "songsee": {
+        "enabled": false
+      },
+      "sonoscli": {
+        "enabled": false
+      },
+      "spotify-player": {
+        "enabled": false
+      },
+      "summarize": {
+        "enabled": false
+      },
+      "tmux": {
+        "enabled": false
+      },
+      "trello": {
+        "enabled": false
+      },
+      "xurl": {
+        "enabled": false
+      },
+      "openai-whisper-api": {
+        "enabled": false
+      }
+    }
+  },
+  "hooks": {
+    "internal": {
+      "enabled": true,
+      "entries": {
+        "session-memory": {
+          "enabled": true,
+          "messages": 25,
+          "llmSlug": false
+        }
+      }
+    }
+  },
+  "wizard": {
+    "lastRunAt": "2026-07-12T22:05:05.939Z",
+    "lastRunVersion": "2026.6.11",
+    "lastRunCommand": "doctor",
+    "lastRunMode": "local"
+  },
+  "meta": {
+    "lastTouchedVersion": "2026.6.11",
+    "lastTouchedAt": "2026-07-13T23:01:34.697Z"
+  },
+  "models": {
+    "providers": {
+      "qwen-local": {
+        "api": "openai-completions",
+        "baseUrl": "http://127.0.0.1:18080/v1",
+        "models": [
+          {
+            "id": "Qwen3.5-4B-Q5_K_M.gguf",
+            "name": "Qwen3.5-4B-Q5_K_M.gguf",
+            "input": [
+              "text"
+            ],
+            "reasoning": true,
+            "contextWindow": 153600,
+            "contextTokens": 153600,
+            "maxTokens": 4096,
+            "cost": {
+              "input": 0,
+              "output": 0,
+              "cacheRead": 0,
+              "cacheWrite": 0
+            }
+          }
+        ],
+        "timeoutSeconds": 300,
+        "localService": {
+          "env": {
+            "MODEL_PRESET": "qwen35-4b-q5km",
+            "MODEL_FILE": "Qwen3.5-4B-Q5_K_M.gguf",
+            "MODEL_DIR": "/home/aldenpark/models/qwen3.5-4b-q5km",
+            "MODEL": "/home/aldenpark/models/qwen3.5-4b-q5km/Qwen3.5-4B-Q5_K_M.gguf",
+            "HOST": "127.0.0.1",
+            "PORT": "18080",
+            "CTX": "153600",
+            "NGL": "999",
+            "PREDICT": "4096",
+            "PARALLEL": "1",
+            "BATCH": "256",
+            "UBATCH": "128",
+            "FLASH_ATTN": "auto",
+            "REASONING_BUDGET": "512",
+            "QWEN_MODEL_CATALOG": "/home/aldenpark/models/qwen-model-presets.json",
+            "MODEL_PORT": "18080",
+            "REASONING": "true"
+          },
+          "command": "/home/aldenpark/models/qwen-local.sh",
+          "args": [
+            "daemon"
+          ],
+          "cwd": "/home/aldenpark/models"
+        }
+      }
+    }
+  },
+  "mcp": {
+    "servers": {
+    }
+  }
+}

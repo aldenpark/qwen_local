@@ -1,0 +1,35 @@
+{
+  "id": "codex-exec",
+  "name": "Codex Exec",
+  "description": "Expose codex exec as an OpenClaw tool.",
+  "version": "0.1.0",
+  "configSchema": {
+    "type": "object",
+    "properties": {
+      "codexBin": {
+        "type": "string",
+        "description": "Path to the codex binary."
+      },
+      "defaultCwd": {
+        "type": "string",
+        "description": "Default working directory for codex exec."
+      },
+      "defaultProfile": {
+        "type": "string",
+        "description": "Default Codex profile."
+      },
+      "defaultSandbox": {
+        "type": "string",
+        "description": "Default Codex sandbox mode."
+      }
+    }
+  },
+  "activation": {
+    "onStartup": true
+  },
+  "contracts": {
+    "tools": [
+      "codex_exec"
+    ]
+  }
+}

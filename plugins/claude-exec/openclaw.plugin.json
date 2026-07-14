@@ -1,0 +1,69 @@
+{
+  "id": "claude-exec",
+  "name": "Claude Exec",
+  "description": "Expose the Claude Code CLI as an OpenClaw tool.",
+  "version": "0.1.0",
+  "configSchema": {
+    "type": "object",
+    "properties": {
+      "claudeBin": {
+        "type": "string",
+        "description": "Path to the Claude Code binary."
+      },
+      "defaultCwd": {
+        "type": "string",
+        "description": "Default working directory for Claude Code."
+      },
+      "defaultModel": {
+        "type": "string",
+        "description": "Default Claude model or alias."
+      },
+      "defaultPermissionMode": {
+        "anyOf": [
+          {
+            "type": "string",
+            "const": "acceptEdits"
+          },
+          {
+            "type": "string",
+            "const": "bypassPermissions"
+          },
+          {
+            "type": "string",
+            "const": "default"
+          },
+          {
+            "type": "string",
+            "const": "delegate"
+          },
+          {
+            "type": "string",
+            "const": "dontAsk"
+          },
+          {
+            "type": "string",
+            "const": "plan"
+          }
+        ]
+      },
+      "defaultMaxBudgetUsd": {
+        "type": "number",
+        "minimum": 0,
+        "description": "Default maximum spend per Claude invocation in USD."
+      },
+      "defaultTimeoutMs": {
+        "type": "integer",
+        "minimum": 1000,
+        "description": "Default process timeout in milliseconds."
+      }
+    }
+  },
+  "activation": {
+    "onStartup": true
+  },
+  "contracts": {
+    "tools": [
+      "claude_exec"
+    ]
+  }
+}

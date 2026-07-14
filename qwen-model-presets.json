@@ -1,0 +1,478 @@
+{
+  "version": 1,
+  "description": "Shared Qwen GGUF model catalog for qwen-local.sh and qwen-openclaw-optuna-tune.py. Preset names are canonical.",
+  "defaults": {
+    "host": "192.168.1.14",
+    "port": 18080,
+    "parallel": 1,
+    "flash_attn": "auto",
+    "reasoning_budget": 512,
+    "reasoning": "off"
+  },
+  "hardware_profiles": {
+    "cuda-4070-8gb": {
+      "ctx_choices": [
+        18432,
+        20480,
+        22528,
+        24576,
+        28672,
+        32768,
+        40960,
+        49152,
+        65536
+      ],
+      "ngl_choices": [
+        8,
+        12,
+        16,
+        20,
+        24,
+        28,
+        32,
+        40,
+        48,
+        999
+      ],
+      "batch_choices": [
+        128,
+        256,
+        512
+      ],
+      "ubatch_choices": [
+        64,
+        128,
+        256
+      ],
+      "max_ctx": 65536
+    },
+    "cuda-4090-24gb": {
+      "ctx_choices": [
+        65536,
+        98304,
+        131072,
+        196608,
+        262144
+      ],
+      "ngl_choices": [
+        16,
+        24,
+        32,
+        40,
+        48,
+        56,
+        64,
+        72,
+        80,
+        999
+      ],
+      "batch_choices": [
+        128,
+        256,
+        512,
+        1024
+      ],
+      "ubatch_choices": [
+        64,
+        128,
+        256,
+        512
+      ],
+      "max_ctx": 262144
+    },
+    "metal-m4-16gb": {
+      "ctx_choices": [
+        32768,
+        49152,
+        65536,
+        98304
+      ],
+      "ngl_choices": [
+        999
+      ],
+      "batch_choices": [
+        128,
+        256,
+        512
+      ],
+      "ubatch_choices": [
+        64,
+        128,
+        256
+      ],
+      "max_ctx": 98304
+    },
+    "metal-m4-24gb": {
+      "ctx_choices": [
+        49152,
+        65536,
+        98304,
+        131072
+      ],
+      "ngl_choices": [
+        999
+      ],
+      "batch_choices": [
+        128,
+        256,
+        512
+      ],
+      "ubatch_choices": [
+        64,
+        128,
+        256
+      ],
+      "max_ctx": 131072
+    },
+    "metal-m4-32gb": {
+      "ctx_choices": [
+        65536,
+        98304,
+        131072,
+        196608
+      ],
+      "ngl_choices": [
+        999
+      ],
+      "batch_choices": [
+        128,
+        256,
+        512,
+        1024
+      ],
+      "ubatch_choices": [
+        64,
+        128,
+        256,
+        512
+      ],
+      "max_ctx": 196608
+    }
+  },
+  "models": {
+    "qwen35-4b-q5km": {
+      "family": "qwen3.5",
+      "size": "4b",
+      "quant": "Q5_K_M",
+      "repo": "unsloth/Qwen3.5-4B-GGUF",
+      "file": "Qwen3.5-4B-Q5_K_M.gguf",
+      "dir": "$HOME/models/qwen3.5-4b-q5km",
+      "description": "4B Q5 baseline; practical RTX 4070 fallback/router/planner.",
+      "defaults": {
+        "predict": 4096,
+        "parallel": 1,
+        "flash_attn": "auto",
+        "reasoning": "off",
+        "ctx": 49152,
+        "ngl": 999,
+        "batch": 256,
+        "ubatch": 128
+      },
+      "hardware_profiles": {
+        "cuda-4070-8gb": {
+          "ngl_choices": [
+            8,
+            12,
+            16,
+            20,
+            24,
+            28,
+            32,
+            40,
+            48,
+            999
+          ]
+        }
+      }
+    },
+    "qwen35-4b-q4km": {
+      "family": "qwen3.5",
+      "size": "4b",
+      "quant": "Q4_K_M",
+      "repo": "unsloth/Qwen3.5-4B-GGUF",
+      "file": "Qwen3.5-4B-Q4_K_M.gguf",
+      "dir": "$HOME/models/qwen3.5-4b-q4km",
+      "description": "4B Q4 for higher context/lower memory.",
+      "defaults": {
+        "predict": 4096,
+        "parallel": 1,
+        "flash_attn": "auto",
+        "reasoning": "off",
+        "ctx": 65536,
+        "ngl": 999,
+        "batch": 256,
+        "ubatch": 128
+      }
+    },
+    "qwen35-4b-q8": {
+      "family": "qwen3.5",
+      "size": "4b",
+      "quant": "Q8_0",
+      "repo": "unsloth/Qwen3.5-4B-GGUF",
+      "file": "Qwen3.5-4B-Q8_0.gguf",
+      "dir": "$HOME/models/qwen3.5-4b-q8",
+      "description": "4B high-quality fallback when 9B is too slow.",
+      "defaults": {
+        "predict": 4096,
+        "parallel": 1,
+        "flash_attn": "auto",
+        "reasoning": "off",
+        "ctx": 49152,
+        "ngl": 999,
+        "batch": 256,
+        "ubatch": 128
+      }
+    },
+    "qwen35-4b-ud-q8kxl": {
+      "family": "qwen3.5",
+      "size": "4b",
+      "quant": "UD-Q8_K_XL",
+      "repo": "unsloth/Qwen3.5-4B-GGUF",
+      "file": "Qwen3.5-4B-UD-Q8_K_XL.gguf",
+      "dir": "$HOME/models/qwen3.5-4b-ud-q8kxl",
+      "description": "4B Unsloth Dynamic high-quality fallback candidate.",
+      "defaults": {
+        "predict": 4096,
+        "parallel": 1,
+        "flash_attn": "auto",
+        "reasoning": "off",
+        "ctx": 49152,
+        "ngl": 999,
+        "batch": 256,
+        "ubatch": 128
+      }
+    },
+    "qwen35-9b-q4km": {
+      "family": "qwen3.5",
+      "size": "9b",
+      "quant": "Q4_K_M",
+      "repo": "unsloth/Qwen3.5-9B-GGUF",
+      "file": "Qwen3.5-9B-Q4_K_M.gguf",
+      "dir": "$HOME/models/qwen3.5-9b-q4km",
+      "description": "9B Q4 main candidate; partial offload on 8GB RTX 4070.",
+      "defaults": {
+        "predict": 4096,
+        "parallel": 1,
+        "flash_attn": "auto",
+        "reasoning": "off",
+        "ctx": 65536,
+        "ngl": 24,
+        "batch": 256,
+        "ubatch": 128
+      }
+    },
+    "qwen35-9b-ud-q4kxl": {
+      "family": "qwen3.5",
+      "size": "9b",
+      "quant": "UD-Q4_K_XL",
+      "repo": "unsloth/Qwen3.5-9B-GGUF",
+      "file": "Qwen3.5-9B-UD-Q4_K_XL.gguf",
+      "dir": "$HOME/models/qwen3.5-9b-ud-q4kxl",
+      "description": "9B Unsloth quality-biased 4-bit test.",
+      "defaults": {
+        "predict": 4096,
+        "parallel": 1,
+        "flash_attn": "auto",
+        "reasoning": "off",
+        "ctx": 65536,
+        "ngl": 20,
+        "batch": 256,
+        "ubatch": 128
+      }
+    },
+    "qwen35-9b-iq4nl": {
+      "family": "qwen3.5",
+      "size": "9b",
+      "quant": "IQ4_NL",
+      "repo": "unsloth/Qwen3.5-9B-GGUF",
+      "file": "Qwen3.5-9B-IQ4_NL.gguf",
+      "dir": "$HOME/models/qwen3.5-9b-iq4nl",
+      "description": "9B IQ4_NL compact/quality candidate.",
+      "defaults": {
+        "predict": 4096,
+        "parallel": 1,
+        "flash_attn": "auto",
+        "reasoning": "off",
+        "ctx": 65536,
+        "ngl": 24,
+        "batch": 256,
+        "ubatch": 128
+      }
+    },
+    "qwen35-9b-q5km": {
+      "family": "qwen3.5",
+      "size": "9b",
+      "quant": "Q5_K_M",
+      "repo": "unsloth/Qwen3.5-9B-GGUF",
+      "file": "Qwen3.5-9B-Q5_K_M.gguf",
+      "dir": "$HOME/models/qwen3.5-9b-q5km",
+      "description": "9B Q5 quality test; likely partial offload on 8GB.",
+      "defaults": {
+        "predict": 4096,
+        "parallel": 1,
+        "flash_attn": "auto",
+        "reasoning": "off",
+        "ctx": 49152,
+        "ngl": 20,
+        "batch": 128,
+        "ubatch": 64
+      }
+    },
+    "qwen35-9b-q8": {
+      "family": "qwen3.5",
+      "size": "9b",
+      "quant": "Q8_0",
+      "repo": "unsloth/Qwen3.5-9B-GGUF",
+      "file": "Qwen3.5-9B-Q8_0.gguf",
+      "dir": "$HOME/models/qwen3.5-9b-q8",
+      "description": "9B high-quality Metal candidate for Apple Silicon with at least 16GB unified memory.",
+      "defaults": {
+        "predict": 4096,
+        "parallel": 1,
+        "flash_attn": "auto",
+        "reasoning": "off",
+        "ctx": 32768,
+        "ngl": 999,
+        "batch": 128,
+        "ubatch": 64
+      },
+      "hardware_profiles": {
+        "metal-m4-16gb": {
+          "ctx_choices": [
+            16384,
+            24576,
+            32768
+          ],
+          "max_ctx": 32768
+        },
+        "metal-m4-24gb": {
+          "ctx_choices": [
+            32768,
+            49152,
+            65536
+          ],
+          "max_ctx": 65536
+        },
+        "metal-m4-32gb": {
+          "ctx_choices": [
+            49152,
+            65536,
+            98304
+          ],
+          "max_ctx": 98304
+        }
+      }
+    },
+    "qwen35-2b-q5km": {
+      "family": "qwen3.5",
+      "size": "2b",
+      "quant": "Q5_K_M",
+      "repo": "unsloth/Qwen3.5-2B-GGUF",
+      "file": "Qwen3.5-2B-Q5_K_M.gguf",
+      "dir": "$HOME/models/qwen3.5-2b-q5km",
+      "description": "Fast weak fallback.",
+      "defaults": {
+        "predict": 4096,
+        "parallel": 1,
+        "flash_attn": "auto",
+        "reasoning": "off",
+        "ctx": 65536,
+        "ngl": 999,
+        "batch": 512,
+        "ubatch": 256
+      }
+    },
+    "qwen35-0.8b-q5km": {
+      "family": "qwen3.5",
+      "size": "0.8b",
+      "quant": "Q5_K_M",
+      "repo": "unsloth/Qwen3.5-0.8B-GGUF",
+      "file": "Qwen3.5-0.8B-Q5_K_M.gguf",
+      "dir": "$HOME/models/qwen3.5-0.8b-q5km",
+      "description": "Very fast weak fallback.",
+      "defaults": {
+        "predict": 4096,
+        "parallel": 1,
+        "flash_attn": "auto",
+        "reasoning": "off",
+        "ctx": 65536,
+        "ngl": 999,
+        "batch": 512,
+        "ubatch": 256
+      }
+    },
+    "qwen3-4b-q5": {
+      "family": "qwen3",
+      "size": "4b",
+      "quant": "Q5_K_M",
+      "repo": "Qwen/Qwen3-4B-GGUF",
+      "file": "Qwen3-4B-Q5_K_M.gguf",
+      "dir": "$HOME/models/qwen3-4b-q5",
+      "description": "Legacy Qwen3 fallback.",
+      "defaults": {
+        "predict": 4096,
+        "parallel": 1,
+        "flash_attn": "auto",
+        "reasoning": "off",
+        "ctx": 32768,
+        "ngl": 999,
+        "batch": 256,
+        "ubatch": 128
+      }
+    },
+    "qwen3-8b-q4": {
+      "family": "qwen3",
+      "size": "8b",
+      "quant": "Q4_K_M",
+      "repo": "Qwen/Qwen3-8B-GGUF",
+      "file": "Qwen3-8B-Q4_K_M.gguf",
+      "dir": "$HOME/models/qwen3-8b-q4",
+      "description": "Legacy Qwen3 fallback; prefer qwen35-9b-*.",
+      "defaults": {
+        "predict": 4096,
+        "parallel": 1,
+        "flash_attn": "auto",
+        "reasoning": "off",
+        "ctx": 32768,
+        "ngl": 32,
+        "batch": 256,
+        "ubatch": 128
+      }
+    },
+    "qwen36-35b-a3b": {
+      "family": "qwen3.6",
+      "size": "35b-a3b",
+      "quant": "UD-Q4_K_M",
+      "repo": "unsloth/Qwen3.6-35B-A3B-GGUF",
+      "file": "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf",
+      "dir": "$HOME/models/qwen3.6-35b-a3b",
+      "description": "4090/server model.",
+      "defaults": {
+        "predict": 4096,
+        "parallel": 1,
+        "flash_attn": "auto",
+        "reasoning": "off",
+        "ctx": 98304,
+        "ngl": 40,
+        "batch": 256,
+        "ubatch": 128
+      }
+    }
+  },
+  "filename_aliases": {
+    "Qwen3.5-4B-Q5_K_M.gguf": "qwen35-4b-q5km",
+    "Qwen3.5-4B-Q4_K_M.gguf": "qwen35-4b-q4km",
+    "Qwen3.5-4B-Q8_0.gguf": "qwen35-4b-q8",
+    "Qwen3.5-4B-UD-Q8_K_XL.gguf": "qwen35-4b-ud-q8kxl",
+    "Qwen3.5-9B-Q4_K_M.gguf": "qwen35-9b-q4km",
+    "Qwen3.5-9B-UD-Q4_K_XL.gguf": "qwen35-9b-ud-q4kxl",
+    "Qwen3.5-9B-IQ4_NL.gguf": "qwen35-9b-iq4nl",
+    "Qwen3.5-9B-Q5_K_M.gguf": "qwen35-9b-q5km",
+    "Qwen3.5-9B-Q8_0.gguf": "qwen35-9b-q8",
+    "Qwen3.5-2B-Q5_K_M.gguf": "qwen35-2b-q5km",
+    "Qwen3.5-0.8B-Q5_K_M.gguf": "qwen35-0.8b-q5km",
+    "Qwen3-4B-Q5_K_M.gguf": "qwen3-4b-q5",
+    "Qwen3-8B-Q4_K_M.gguf": "qwen3-8b-q4",
+    "Qwen3.6-35B-A3B-UD-Q4_K_M.gguf": "qwen36-35b-a3b"
+  }
+}
