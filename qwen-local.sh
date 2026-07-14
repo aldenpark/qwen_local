@@ -531,8 +531,11 @@ check_apple_silicon_metal() {
     exit 1
   }
 
-  xcrun -f metal >/dev/null || {
-    echo "ERROR: Metal compiler not found. Install or update Xcode Command Line Tools."
+  xcrun -f metal >/dev/null 2>&1 || {
+    echo "ERROR: Metal compiler is unavailable in the active developer directory."
+    echo "Install the full Xcode app, then run:"
+    echo "  sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer"
+    echo "  xcodebuild -downloadComponent MetalToolchain"
     exit 1
   }
 
@@ -581,6 +584,8 @@ check_llama_backend() {
 }
 
 install_packages() {
+  local backend="${1:-}"
+
   if [ "$(uname -s)" = "Darwin" ]; then
     echo "== Installing macOS packages =="
 
@@ -588,6 +593,18 @@ install_packages() {
       xcode-select --install
       echo "Complete the Xcode CLI Tools installation, then rerun this script."
       return 1
+    fi
+
+    if [ "$backend" = "metal" ] && ! xcrun -f metal >/dev/null 2>&1; then
+      if [ ! -d /Applications/Xcode.app ]; then
+        echo "ERROR: Metal support requires the full Xcode app."
+        echo "Install Xcode from the App Store, then rerun this script."
+        return 1
+      fi
+
+      echo "== Installing the Xcode Metal toolchain =="
+      sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+      xcodebuild -downloadComponent MetalToolchain
     fi
 
     # Handle standard Apple Silicon and Intel Homebrew locations.
@@ -795,8 +812,8 @@ install_all() {
   # Full first-time setup: OS packages, llama.cpp build, HF tools, and model file.
   local backend
   backend="$(detect_llama_backend)"
+  install_packages "$backend"
   check_llama_backend "$backend"
-  install_packages
   build_llamacpp "$backend"
   install_hf_cli
   download_model
