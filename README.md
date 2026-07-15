@@ -138,7 +138,7 @@ Start the server with `OUTPUT_MODE=codex`, then create or refresh the profile:
 
 ```bash
 ./qwen-local.sh codex-profile
-codex --profile local-llama
+./qwen-local.sh codex
 ```
 
 `codex-profile` verifies `/v1/responses` support and writes:
@@ -155,9 +155,13 @@ so settings from another `qwen-local` provider do not leak into it.
 Non-interactive verification:
 
 ```bash
-codex exec --profile local-llama --skip-git-repo-check \
+./qwen-local.sh codex exec --skip-git-repo-check \
   'Reply with exactly: OK'
 ```
+
+The `codex` command is equivalent to `codex --profile local-llama`. Additional
+arguments are passed directly to Codex. Set `CODEX_PROFILE` in the env file to
+use a different generated profile name.
 
 ## Endpoint tests
 

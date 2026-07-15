@@ -68,18 +68,20 @@ umask 077
 #   5. Lower MAX_TOKENS if long generations are causing memory pressure.
 #
 # /home/aldenpark/
-# ├── .local/bin/openclaw-start # Main launcher
-# ├── .local/bin/openclaw-stop
-# ├── .local/bin/openclaw-status
-# ├── .convig/qwen-local/openclaw.env   # settings for OpenClaw
+# ├── qwen-local.sh                 # Main qwen sh program 
 # ├── models/                                                                                                                                       
-# │   ├── qwen-local.sh          # Main qwen sh program 
-# │   ├── qwen3.5-4b-q5km/   # Model directory                                                                                                      
+# │   ├── qwen3.5-4b-q5km/              # Model directory                                                                                                      
 # │   │   └── Qwen3.5-4B-Q5_K_M.gguf                                                                                                                
-# │   └── qwen-model-presets.json  # Config catalog                                                                                                 
-# └── .openclaw/                                                                                                                                    
-#     └── workspace/                                                                                                                                    
-#         └── openclaw.json   # OpenClaw integration config  
+# │   └── qwen-model-presets.json       # Config catalog                                                                                                 
+# ├── .config/qwen-local/
+# │   └── qwen-local.env                # Qwen settings
+# ├── templates/                        # (optional)                                                                                                                             
+# │   └── qwen-3.5-codex.jinja          # Qwen codex template
+# ├── .openclaw/                        # (optional)                                                                                                                             
+# │   └── workspace/                                                                                                                                    
+# │       └── openclaw.json             # OpenClaw integration config
+# ├── .plugins/                         # OpenClaw Codex & Claude plugins
+# └── .config/qwen-local/openclaw.env   # settings for OpenClaw
 #
 # https://apxml.com/tools/vram-calculator
 # https://huggingface.co/unsloth/models?sort=alphabetical&p=30 qwen does not offer gguf quantized varients
@@ -1133,6 +1135,24 @@ EOF
   echo "Start Codex with: codex --profile $profile_name"
 }
 
+start_codex() {
+  local profile_name="${CODEX_PROFILE:-local-llama}"
+  local codex_home="${CODEX_HOME:-$HOME/.codex}"
+  local profile_path="$codex_home/${profile_name}.config.toml"
+
+  command -v codex >/dev/null || {
+    echo "ERROR: codex was not found on PATH." >&2
+    return 1
+  }
+  [ -f "$profile_path" ] || {
+    echo "ERROR: Codex profile not found: $profile_path" >&2
+    echo "Run: $0 codex-profile" >&2
+    return 1
+  }
+
+  exec codex --profile "$profile_name" "$@"
+}
+
 print_cline() {
   echo
   echo "Cline settings:"
@@ -1795,6 +1815,9 @@ case "$MODE" in
   codex-profile)
     write_codex_profile
     ;;
+  codex)
+    start_codex "${@:2}"
+    ;;
   cline)
     print_cline
     ;;
@@ -1817,11 +1840,12 @@ case "$MODE" in
     print_openclaw_review
     ;;
   *)
-    echo "Usage: $0 {install|update|fast|reasoning|stop|status|test|codex-profile|cline|vscode|tune|diagnose-openclaw|tune-openclaw|openclaw-install|openclaw-review}"
+    echo "Usage: $0 {install|update|fast|reasoning|stop|status|test|codex-profile|codex|cline|vscode|tune|diagnose-openclaw|tune-openclaw|openclaw-install|openclaw-review}"
     echo
     echo "Install/update:"
     echo "  $0 install                 Choose model, install deps, build llama.cpp, download model"
     echo "  $0 update                  Choose model, update llama.cpp/HF CLI/model"
+    echo "  $0 codex-profile           Write a Codex profile when /v1/responses is supported"
     echo
     echo "Start:"
     echo "  $0 fast                    Start server in foreground, reasoning off"
@@ -1831,7 +1855,7 @@ case "$MODE" in
     echo "  $0 stop                    Stop server on configured port"
     echo "  $0 status                  Show server status"
     echo "  $0 test                    Send simple chat request"
-    echo "  $0 codex-profile           Write a Codex profile when /v1/responses is supported"
+    echo "  $0 codex                   Start Codex with the configured local profile"
     echo
     echo "Config:"
     echo "  $0 cline                   Print Cline config"
