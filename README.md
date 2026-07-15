@@ -1,7 +1,7 @@
-# Qwen Local with llama.cpp, Codex, and OpenClaw
+# Qwen Local with llama.cpp
 
 `qwen-local.sh` installs and runs a local Qwen GGUF through `llama-server`. It
-supports CUDA, Apple Metal, and CPU builds, and can configure Codex or OpenClaw
+supports CUDA, Apple Metal, and CPU builds, and can configure Codex, OpenClaw, and others
 to use the local OpenAI-compatible endpoint.
 
 ## Quick start
